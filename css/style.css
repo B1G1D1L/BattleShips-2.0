@@ -59,7 +59,9 @@ td {
   height: 45px;
   border: 1px solid red;
 }
-
+td:hover ~ td {
+  background-color: rgba(44, 0, 222, .2);;
+}
 
 
 .info__ship--table > tr > td {
@@ -72,6 +74,8 @@ td {
   align-items: center;
   justify-content: space-between;
   margin-top: 10px;
+  border: 1px solid transparent;
+
 }
 .info__ship > table {
   border-spacing: 5px;
@@ -89,4 +93,9 @@ td {
 
 .info__ship--selected {
   border: 1px solid green;
+}
+
+.position {
+  font-size: 30px;
+  margin-top: 20px;
 }
