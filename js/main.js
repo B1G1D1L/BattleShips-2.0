@@ -58,7 +58,7 @@ let model = {
     ]
   },
 
-  hovereEffect: function() {
+  hoverEffect: function() {
     let inputBoard = document.querySelectorAll('.board__body--1 td');
     
     inputBoard.forEach(item => {
@@ -153,7 +153,7 @@ let model = {
 
 
 // model.choiceOfShipLength();
-model.hovereEffect();
+model.hoverEffect();
 
 
 
