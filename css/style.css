@@ -59,3 +59,34 @@ td {
   height: 45px;
   border: 1px solid red;
 }
+
+
+
+.info__ship--table > tr > td {
+  border-collapse: separate;
+  background-color: mediumblue;
+}
+
+.info__ship {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.info__ship > table {
+  border-spacing: 5px;
+}
+
+.info__ship--calc {
+  font-size: 20px;
+}
+.info__ship--calc > em {
+  font-size: 24px;
+  font-family: serif;
+  font-weight: 700;
+  margin-left: 20px;
+}
+
+.info__ship--selected {
+  border: 1px solid green;
+}
