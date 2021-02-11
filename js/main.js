@@ -3,7 +3,21 @@ let display = {
     let div = document.getElementById('info__message');
     div.innerHTML = str;
   },
+
+  displayRemainingShips: function(num, deck) {
+    let numOneDeck = document.querySelectorAll('.info__ship--calc em');
+    
+    if(deck === 1) {
+      numOneDeck[0].innerHTML = num;
+    } else if(deck === 2) {
+      numOneDeck[1].innerHTML = num;
+    } else {
+      numOneDeck[2].innerHTML = num
+    }
+  }
 };
+
+// display.displayRemainingShips()
 
 let model = {
   boardSize: 10,
@@ -16,7 +30,7 @@ let model = {
 
   positionShop: 0,
 
-  selectedLengthShip: 2, 
+  selectedLengthShip: 3, 
 
   myShips: {
     oneDeck: [
@@ -58,7 +72,7 @@ let model = {
     ]
   },
 
-  hoverEffect: function() {
+  positionCreation: function() {
     let inputBoard = document.querySelectorAll('.board__body--1 td');
     
     inputBoard.forEach(item => {
@@ -81,25 +95,25 @@ let model = {
         }
 
         // Добавление переменных в массив
-        if(this.selectedLengthShip === 3) {
+        if(this.selectedLengthShip == 3) {
           arrIdCell.push(firstСell, secondCell, thirdCell);
-        } else if (this.selectedLengthShip === 2) {
+        } else if (this.selectedLengthShip == 2) {
           arrIdCell.push(firstСell, secondCell);
-        } else if (this.selectedLengthShip === 1) {
+        } else if (this.selectedLengthShip == 1) {
           arrIdCell.push(firstСell);
-        } else {this.display.displayMessage('Расставте свои корабли')}
+        } else {display.displayMessage('Расставте свои корабли')}
 
         // Добавление класса 
         arrIdCell.forEach(item => item.classList.add('hover'));
 
 
         // Слушатель курсор уходит с елемента
-        item.addEventListener('mouseout', event => {
+        item.addEventListener('mouseout', () => {
           arrIdCell.forEach(item => item.classList.remove('hover'))
         });
 
         // При установки коробля
-        item.addEventListener('click', event => {
+        item.addEventListener('click', () => {
           this.addPosition(arrIdCell);
         })
       });
@@ -114,22 +128,33 @@ let model = {
       modelShip.push({
         location: [ locationShip[0], locationShip[1], locationShip[2] ],
         hits: ['', '', '']
-      })
+      });
+      // отображение оставшиеся кораблей
+      this.numThreeDeck--;
+      display.displayRemainingShips(this.numThreeDeck, 3);
       console.log(this.myShips);
+      
     } else if(locationShip.length === 2) {
       let modelShip = this.myShips.twoDeck;
       modelShip.push({
         location: [locationShip[0], locationShip[1]],
         hits: ['', '']
       })
+      // отображение оставшиеся кораблей
+      this.numTwoDeck--;
+      display.displayRemainingShips(this.numTwoDeck, 2);
       console.log(this.myShips);
+
     } else {
-      let modelShip = this.myShipsю.oneDeck;
+      let modelShip = this.myShips.oneDeck;
       modelShip.push({
         location: [locationShip[0]],
         hits: ['']
       })
+      // отображение оставшиеся кораблей
       console.log(this.myShips);
+      this.numOneDeck--;
+      display.displayRemainingShips(this.numOneDeck, 1);
     }
   },
 
@@ -139,7 +164,9 @@ let model = {
 
     for(let item of shipSetting) {
       item.addEventListener('click', event => {
+        // Очистить класс
         shipSetting.forEach(item => item.classList.remove('info__ship--selected'));
+        // Добавить выбранному класс
         event.currentTarget.classList.add('info__ship--selected');
         inputLengthShip = event.currentTarget.id;
         this.selectedLengthShip = event.currentTarget.id;
@@ -152,8 +179,8 @@ let model = {
 };
 
 
-// model.choiceOfShipLength();
-model.hoverEffect();
+model.choiceOfShipLength();
+model.positionCreation();
 
 
 
