@@ -17,8 +17,6 @@ let display = {
   }
 };
 
-// display.displayRemainingShips()
-
 let model = {
   boardSize: 10,
   numShips: 9,
@@ -95,13 +93,13 @@ let model = {
         }
 
         // Добавление переменных в массив
-        if(this.selectedLengthShip == 3) {
+        if(this.selectedLengthShip == 3 && this.numThreeDeck > 0) {
           arrIdCell.push(firstСell, secondCell, thirdCell);
-        } else if (this.selectedLengthShip == 2) {
+        } else if (this.selectedLengthShip == 2 && this.numTwoDeck > 0) {
           arrIdCell.push(firstСell, secondCell);
-        } else if (this.selectedLengthShip == 1) {
+        } else if (this.selectedLengthShip == 1 && this.numOneDeck > 0) {
           arrIdCell.push(firstСell);
-        } else {display.displayMessage('Расставте свои корабли')}
+        } else return false;
 
         // Добавление класса 
         arrIdCell.forEach(item => item.classList.add('hover'));
@@ -114,48 +112,50 @@ let model = {
 
         // При установки коробля
         item.addEventListener('click', () => {
-          this.addPosition(arrIdCell);
+          let locationShip = arrIdCell.map(item => item.id);
+          this.addPosition(locationShip);
+          this.collision(locationShip);
         })
       });
     });
   },
 
-  addPosition: function(arr) {
-    let locationShip = arr.map(item => item.id);
-
-    if(locationShip.length === 3) {
+  addPosition: function(location) {
+    
+    if(location.length === 3) {
       let modelShip = this.myShips.threeDeck;
       modelShip.push({
-        location: [ locationShip[0], locationShip[1], locationShip[2] ],
+        location: [ location[0], location[1], location[2] ],
         hits: ['', '', '']
       });
       // отображение оставшиеся кораблей
       this.numThreeDeck--;
       display.displayRemainingShips(this.numThreeDeck, 3);
-      console.log(this.myShips);
+      // this.collision(modelShip);
       
-    } else if(locationShip.length === 2) {
+    } else if(location.length === 2) {
       let modelShip = this.myShips.twoDeck;
       modelShip.push({
-        location: [locationShip[0], locationShip[1]],
+        location: [location[0], location[1]],
         hits: ['', '']
       })
       // отображение оставшиеся кораблей
       this.numTwoDeck--;
       display.displayRemainingShips(this.numTwoDeck, 2);
-      console.log(this.myShips);
+      // console.log(this.myShips);
 
     } else {
       let modelShip = this.myShips.oneDeck;
       modelShip.push({
-        location: [locationShip[0]],
+        location: [location[0]],
         hits: ['']
       })
       // отображение оставшиеся кораблей
-      console.log(this.myShips);
+      // console.log(this.myShips); 
       this.numOneDeck--;
       display.displayRemainingShips(this.numOneDeck, 1);
     }
+
   },
 
   choiceOfShipLength: function() {
@@ -174,9 +174,16 @@ let model = {
     }
   },
 
+  collision: function(location) {
+    let key = Object.values(this.myShips);
 
+    console.log(key);
+
+    return false;
+  },
 
 };
+
 
 
 model.choiceOfShipLength();
