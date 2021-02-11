@@ -72,7 +72,7 @@ let model = {
     ]
   },
 
-  positionCreation: function() {
+  positionCreation: function() {  
     let inputBoard = document.querySelectorAll('.board__body--1 td');
     
     inputBoard.forEach(item => {
